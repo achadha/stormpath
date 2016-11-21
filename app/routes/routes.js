@@ -55,7 +55,6 @@ module.exports = function(app) {
                 }
             )
         } else {
-            debugger;
             Note.create({
                 title: reqNote.title,
                 value: reqNote.value,
