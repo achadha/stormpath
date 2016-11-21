@@ -5,6 +5,6 @@
     <ul class="nav navbar-nav">
         <li if-not-user><a ui-sref="register">Register</a></li>
         <li if-not-user><a ui-sref="login">Login</a></li>
-        <li if-user><a sp-logout href="home">Logout</a></li>
+        <li if-user><a sp-logout ui-sref="login">Logout</a></li>
     </ul>
 </nav>

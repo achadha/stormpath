@@ -38,9 +38,13 @@ var app = angular.module("app", [
     });
 
     STORMPATH_CONFIG.FORM_CONTENT_TYPE = 'application/json';
-}).run(function($stormpath){
-  $stormpath.uiRouter({
-    loginState: 'login',
-    defaultPostLoginState: 'home'
-  });
+}).run(function($stormpath, $rootScope, $state){
+    $stormpath.uiRouter({
+        loginState: 'login',
+        defaultPostLoginState: 'home'
+    });
+
+    $rootScope.$on('$sessionEnd',function () {
+        $state.transitionTo('login');
+    });
 });
