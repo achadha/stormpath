@@ -1,1 +1,6 @@
-<div>note</div>
+<div ng-if="note" class="row">
+    <input class="col-xs-12" ng-model="note.title"></input>
+    <textarea class="col-xs-12" ng-model="note.value"></textarea>
+    <button type="button" class="btn btn-primary pull-right" ng-click="submitNote(note)">Save</button>
+    <button type="button" class="btn btn-primary pull-right" ng-click="deleteNote(note)">Delete</button>
+</div>

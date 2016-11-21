@@ -10,11 +10,11 @@ var app = angular.module("app", [
     'stormpath.templates'
 ])
 .config(function($stateProvider, $urlRouterProvider, $locationProvider, STORMPATH_CONFIG) {
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/notes');
     $locationProvider.html5Mode(true);
     $stateProvider
     .state('home', {
-        url: '/',
+        url: '/notes',
         template: '<div notes-module></div>',
         sp: {
             authenticate: true

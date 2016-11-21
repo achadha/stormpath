@@ -5,11 +5,14 @@ var app = express();
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
-
 app.use(express.static(__dirname + '/client'));
 app.use('/libs', express.static(__dirname + '/node_modules'));
 // app.use('/directives', express.static(__dirname + '/client/directives'));
-app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
+app.use(bodyParser.json());                                     // parse application/json
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+
+require('./app/routes/routes')(app);
 
 app.use(ExpressStormpath.init(app,{
     apiKey: {

@@ -1,1 +1,8 @@
-<div>saved notes</div>
+<div class="row">
+    <div class="col-xs-12">
+        <button class="btn btn-primary" ng-click="newNote()">New Note</button>
+    </div>
+    <div class="col-xs-12" ng-repeat="note in notes">
+        <div ng-class="note.id === currentNote.id ? 'active-note' : ''"ng-click="select(note)">{{note.title}}</div>
+    </div>
+</div>
