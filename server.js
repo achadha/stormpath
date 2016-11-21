@@ -18,13 +18,6 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 require('./app/routes/routes')(app);
 
 app.use(ExpressStormpath.init(app,{
-    apiKey: {
-        id: '5K4W4BHKP2NKU44P7PT2RY8KC',
-        secret: 'dhCBwJg9RXQy0Ft6Ysv0m8NmHeCbH1ygTu8EXXBc4oc'
-    },
-    application: {
-        href: 'https://api.stormpath.com/v1/applications/hPOvpQUiI37nhoP0uPrzz'
-    },
     web: {
         spa: {
             enabled: true,
