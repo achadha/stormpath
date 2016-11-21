@@ -38,5 +38,5 @@ app.on('stormpath.ready', function () {
     console.log('Stormpath Ready!');
 });
 
-app.listen(8080);
+app.listen(process.env.PORT || 8080);
 console.log("App strapped");
