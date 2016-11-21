@@ -1,0 +1,15 @@
+{
+  "name": "stormpath",
+  "version": "0.0.0",
+  "description": "Note taking application with auth",
+  "main": "server.js",
+  "author": "achadha",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-ui-router": "^0.3.2",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "express-stormpath": "^3.1.6",
+    "mongoose": "^4.6.8"
+  }
+}
