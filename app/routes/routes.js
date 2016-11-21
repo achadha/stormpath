@@ -1,51 +1,80 @@
-var notes = [];
-
-if(notes.length == 0) {
-    for(var i = 0; i<5; i++) {
-        notes.push({
-            id: ''+i,
-            title: "title" + i,
-            value: "note" + i
-        });
-    }
-}
+var Note = require('../models/note.js');
 
 module.exports = function(app) {
     app.get('/api/notes', function(req, res) {
-        res.json(notes);
+        Note.find({emailName: req.query.emailName})
+        .sort({ creationDate: -1})
+        .exec(function(err, notes) {
+            if(err) {
+                res.send(err);
+            }
+
+            res.json(notes)
+        })
+    });
+
+    app.get('/api/notes/:id', function(req, res) {
+        Note.find({ _id: req.params.id }, function(err, note) {
+            if(err) {
+                res.send(err);
+            }
+
+            res.json(note);
+        })
+    });
+
+    app.get('/api/notes/latest', function(req, res) {
+        Note.find({emailName: req.query.emailName})
+            .sort({creationDate: -1})
+            .limit(1)
+            .exec(function(err, note) {
+                if(err) {
+                    res.send(err);
+                }
+
+                res.json(note);
+            });
     });
 
     app.post('/api/note', function(req, res) {
-        var changed = false;
         var reqNote = req.body;
-        console.log(reqNote);
-        for(var j = 0; j < 5; j++) {
-            if(notes[j].id === reqNote.id) {
-                notes[j].title = reqNote.title;
-                notes[j].value = reqNote.value;
-                changed = true;
-            }
+        if(reqNote._id) {
+            Note.findOneAndUpdate(
+                { _id: reqNote._id},
+                {
+                    title: reqNote.title,
+                    value: reqNote.value,
+                    emailName: reqNote.email,
+                    modifiedDate: new Date()
+                },
+                { upsert: true },
+                function(err, note) {
+                    if(err) {
+                        res.send(err);
+                    }
+                }
+            )
+        } else {
+            debugger;
+            Note.create({
+                title: reqNote.title,
+                value: reqNote.value,
+                emailName: reqNote.email,
+                modifiedDate: new Date()
+            }, function(err) {
+                if(err) {
+                    res.send(err);
+                }
+            });
         }
 
-        if(!reqNote.id) {
-            notes.unshift({
-                id: notes.length+1,
-                title: reqNote.title,
-                value: reqNote.value
-            })
-        }
-        console.log(notes);
     });
 
     app.delete('/api/note/:noteId', function(req, res) {
-        var newNotes = [];
-        var noteId = req.params.noteId;
-        for(var k = 0; k < notes.length; k++) {
-            if(notes[k].id !== noteId) {
-                newNotes.push(notes[k]);
+        Note.remove({ _id: req.params.noteId }, function(err, note) {
+            if(err) {
+                res.send(err);
             }
-        }
-        debugger;
-        notes = newNotes;
+        })
     });
 }

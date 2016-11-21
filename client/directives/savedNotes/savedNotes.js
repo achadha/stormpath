@@ -11,9 +11,10 @@ angular.module('savedNotes', [])
                     }
                 })
 
-
                 $scope.select = function(note) {
+                    $scope.$parent.currentNote.active = false;
                     $scope.$parent.currentNote = note;
+                    $scope.$parent.currentNote.active = true;
                 }
             }
         }

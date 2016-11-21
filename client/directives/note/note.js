@@ -6,7 +6,7 @@ angular.module('note', [])
             $scope.$watch('$parent.currentNote', function(newValue, oldValue) {
                 if(newValue) {
                     $scope.note = {
-                        id: newValue.id,
+                        _id: newValue._id,
                         title: newValue.title,
                         value: newValue.value
                     };
@@ -15,7 +15,11 @@ angular.module('note', [])
             })
 
             $scope.submit = function() {
-                noteService.post($scope.note);
+                $scope.$parent.submitNote($scope.note);
+            }
+
+            $scope.delete = function() {
+                $scope.$parent.deleteNote($scope.note);
             }
         }
     ])

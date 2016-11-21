@@ -1,16 +1,25 @@
 angular.module('notesModule', [
     'note',
     'savedNotes',
-    'noteService'
+    'noteService',
+    'stormpath.userService'
 ])
 .controller('notesModuleCtrl', [
     '$scope',
+    '$user',
     'noteService',
-    function($scope, noteService) {
+    function($scope, $user, noteService) {
+        $user.get().then(function(user) {
+            console.log(user);
+        });
+
         function init() {
             noteService.get().then(function(res) {
                 $scope.notes = res.data;
-                $scope.currentNote = $scope.notes[0];
+                if($scope.notes.length > 0) {
+                    $scope.currentNote = $scope.notes[0];
+                    $scope.currentNote.active = true;
+                }
             });
         }
 
@@ -25,10 +34,17 @@ angular.module('notesModule', [
         }
 
         $scope.newNote = function() {
+            if($scope.notes.length > 0) {
+                $scope.currentNote.active = false;
+            }
+
             $scope.notes.unshift({
-                title: "New Note"
+                title: "New Note",
+                email: $user.currentUser.email
             });
+
             $scope.currentNote = $scope.notes[0];
+            $scope.currentNote.active = true;
         }
 
         init();

@@ -3,7 +3,10 @@ var express = require('express');
 var path = require('path');
 var app = express();
 var mongoose = require('mongoose');
+var db = require('./config/db');
 var bodyParser = require('body-parser');
+
+mongoose.connect(db.url);
 
 app.use(express.static(__dirname + '/client'));
 app.use('/libs', express.static(__dirname + '/node_modules'));
