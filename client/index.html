@@ -1,0 +1,28 @@
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>NoteTaker</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+    <!-- SPELLS -->
+    <script src="/libs/angular/angular.js"></script>
+    <script src="/libs/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="app.js"></script>
+    <script src="directives/navigation/navigation.js"></script>
+    <script src="directives/notesModule/notesModule.js"></script>
+    <script src="directives/savedNotes/savedNotes.js"></script>
+    <script src="directives/note/note.js"></script>
+
+
+
+</head>
+<body>
+    <div navigation></div>
+    <div class="container">
+        <div ui-view></div>
+    </div>
+</body>
+</html>
